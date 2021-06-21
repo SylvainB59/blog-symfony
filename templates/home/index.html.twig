@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Bienvenue dans la page d'accueil</h1>
+</div>
+<div class="container">
+    <div class="row">
+        {% for article in articles %}
+{# {{ dump(article) }} #}
+            <div class="card col-md-3">
+                <p class="date">Ecrit le
+                    {{article.createdAt | date("d/m/Y")}}
+                    à
+                    {{article.createdAt | date("H:i")}}</p>
+                <p>Par <span class="author">{{article.author}}</span></p>
+                <img src="/assets/blog/images/{{article.image}}" width="100%" class="card-img-top" alt="{{article.image}}">
+
+
+                <div class="card-body">
+                    <h5 class="card-title">{{article.title}}</h5>
+                    <a href="{{path('show', {id : article.id})}}" class="btn btn-primary">En savoir plus</a>
+
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

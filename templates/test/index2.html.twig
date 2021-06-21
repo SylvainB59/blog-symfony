@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}test index 2{% endblock %}
+
+{% block body %}
+
+	<style>
+        h1 {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+
+	{% if taille >= min %}
+		<p>taille nom SUP a {{ min }}</p>
+
+	{% else %}
+		<p>taille nom INF a {{ min }}</p>
+
+	{% endif %}
+
+{% endblock %}
