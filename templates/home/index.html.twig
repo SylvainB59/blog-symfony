@@ -8,25 +8,48 @@
 </div>
 <div class="container">
     <div class="row">
-        {% for article in articles %}
-{# {{ dump(article) }} #}
-            <div class="card col-md-3">
-                <p class="date">Ecrit le
-                    {{article.createdAt | date("d/m/Y")}}
-                    à
-                    {{article.createdAt | date("H:i")}}</p>
-                <p>Par <span class="author">{{article.author}}</span></p>
-                <img src="/assets/blog/images/{{article.image}}" width="100%" class="card-img-top" alt="{{article.image}}">
+        <div class="col-md-8">
+            <div class="row">
+                {% for article in articles %}
+        {# {{ dump(article) }} #}
+                    <div class="card col-md-3">
+                        <p class="date">Ecrit le
+                            {{article.createdAt | date("d/m/Y")}}
+                            à
+                            {{article.createdAt | date("H:i")}}</p>
+                        <p>Par <span class="author">{{article.author}}</span></p>
+                        <img src="/assets/blog/images/{{article.image}}" width="100%" class="card-img-top" alt="{{article.image}}">
 
 
-                <div class="card-body">
-                    <h5 class="card-title">{{article.title}}</h5>
-                    <a href="{{path('show', {id : article.id})}}" class="btn btn-primary">En savoir plus</a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{article.title}}</h5>
+                            <a href="{{path('show', {id : article.id})}}" class="btn btn-primary">En savoir plus</a>
 
-                </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
             </div>
+        </div>
+        {# {% for category in categories %}
+        {{dump(category)}}
+        {% endfor %} #}
+        {# {{dump(categories)}} #}
 
-        {% endfor %}
+        <div class="col-md-4">
+            <h2>Categories</h2>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="#">{{category.title}}<span class="badge">{{category.articles | length}} articles</span></a>
+                        {# <a href="{{path('show_article', {id: category.id})}}">{{category.title}}<span class="badge">{{category.articles | length}} articles</span></a> #}
+                    </li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+                 
+
     </div>
 </div>
 
