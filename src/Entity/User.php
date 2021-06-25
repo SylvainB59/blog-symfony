@@ -37,6 +37,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    private $passwordConfirm;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -129,6 +131,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPasswordConfirm(): string
+    {
+        return $this->passwordConfirm;
+    }
+
+    public function setPasswordConfirm(string $passwordConfirm): self
+    {
+        $this->passwordConfirm = $passwordConfirm;
 
         return $this;
     }
