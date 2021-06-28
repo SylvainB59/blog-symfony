@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $this->manager->persist($user);
-            $this->manger->flush();
+            $this->manager->flush();
             return $this->redirectToRoute("home");
         }
 

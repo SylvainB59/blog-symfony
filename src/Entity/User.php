@@ -2,15 +2,25 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *      fields={"username"},
+ *      message="Ce username existe déja"
+ * )
+ * @UniqueEntity(
+ *      fields={"email"},
+ *      message="Ce mail existe déja"
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -23,6 +33,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 20,
+     *      minMessage = "Your username must be at least {{ limit }} characters long",
+     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Regex(
+     *      pattern="/^[a-zA-Z0-9\s]{3-20}$/",
+     *      message="mauvais username"
+     * )
      */
     private $username;
 
@@ -34,6 +54,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 50,
+     *      minMessage = "Your password must be at least {{ limit }} characters long",
+     *      maxMessage = "Your password cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Regex(
+     *      pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/",
+     *      message="mauvais password"
+     * )
      */
     private $password;
 
@@ -41,16 +71,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20,
+     *      minMessage = "Your firstname must be at least {{ limit }} characters long",
+     *      maxMessage = "Your firstname cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Regex(
+     *      pattern="/^[a-zA-Z\s\p{L}]{2,20}$/u",
+     *      message="mauvais prenom"
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 20,
+     *      minMessage = "Your lastname must be at least {{ limit }} characters long",
+     *      maxMessage = "Your lastname cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Regex(
+     *      pattern="/^[a-zA-Z\s\p{L}]{2,20}$/u",
+     *      message="mauvais nom"
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valid."
+     * )
      */
     private $email;
 
