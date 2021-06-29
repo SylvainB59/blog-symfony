@@ -12,15 +12,25 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            # anonymous: true
             lazy: true
             provider: app_user_provider
+
+            # form_login:
+            #     login_path: security_login
+            #     check_path: security_login
+            logout:
+                path: app_logout
+                target: home
+            custom_authenticator: App\Security\LoginAuthenticator
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

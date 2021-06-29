@@ -19,31 +19,32 @@ class RegisterType extends AbstractType
         $builder
             ->add('username', TextType::class)
             // ->add('roles', HiddenType::class)
-            // ->add('password', PasswordType::class)
-            // ->add('passwordConfirm', PasswordType::class)
+            ->add('password', PasswordType::class)
+            ->add('passwordConfirm', PasswordType::class)
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
-            ->add('email', EmailType::class, [
-                'label'=>'Email',
-                'attr' => [
-                    'placeholder' => 'Email'
-                    ]
-                ])
-            ->add('password', RepeatedType::class, array(
-                        'type' => PasswordType::class,
-                        'first_options' => array(
-                            'label' => 'Mot de passe', 
-                            'attr' => [
-                                'placeholder' => 'Mot de passe',
-                                'class' => 'bg-primary'
-                            ]),
-                        'second_options' => array(
-                            'label' => 'Confirmation du mot de passe', 
-                            'attr' => [
-                                'placeholder' => 'Confirmation du mot de passe',
-                                'class' => 'bg-warning'
-                            ]),
-            ))
+            ->add('email', EmailType::class)
+            // ->add('email', EmailType::class, [
+            //     'label'=>'Email',
+            //     'attr' => [
+            //         'placeholder' => 'Email'
+            //         ]
+            //     ])
+            // ->add('password', RepeatedType::class, array(
+            //             'type' => PasswordType::class,
+            //             'first_options' => array(
+            //                 'label' => 'Mot de passe', 
+            //                 'attr' => [
+            //                     'placeholder' => 'Mot de passe',
+            //                     'class' => 'bg-primary'
+            //                 ]),
+            //             'second_options' => array(
+            //                 'label' => 'Confirmation du mot de passe', 
+            //                 'attr' => [
+            //                     'placeholder' => 'Confirmation du mot de passe',
+            //                     'class' => 'bg-warning'
+            //                 ]),
+                // ))
         ;
     }
 
